@@ -1,13 +1,8 @@
 {
-  "displayName": "Data Split",
-  "name": "data-split",
+  "displayName": "Data Split Shadi",
+  "name": "data-split-shadi",
   "scope": "project",
   "version": "v1.1.0",
-  "codebase": {
-    "type": "git",
-    "gitUrl": "https://github.com/dataloop-ai-apps/data-split.git",
-    "gitTag": "v1.1.0"
-  },
   "components": {
     "panels": [
       {
@@ -38,7 +33,7 @@
       }
     ],
     "modules": [
-           {
+      {
         "name": "data_split",
         "entryPoint": "modules/data_split.py",
         "className": "ServiceRunner",
@@ -60,14 +55,14 @@
               }
             ],
             "displayIcon": "qa-sampling",
-            "displayName": "Data Split"
+            "displayName": "Data Split Shadi"
           }
         ]
       }
     ],
     "services": [
- {
-        "name": "data-split-nodes",
+      {
+        "name": "data-split-nodes2",
         "panelNames": [
           "dataSplit"
         ],
@@ -92,7 +87,7 @@
         "maxAttempts": 3
       },
       {
-        "name": "data-split",
+        "name": "data-split2",
         "moduleName": "data_split",
         "runtime": {
           "podType": "regular-xs",
