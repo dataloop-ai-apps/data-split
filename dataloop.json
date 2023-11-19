@@ -1,8 +1,8 @@
 {
-  "displayName": "Data Split Shadi",
-  "name": "data-split-shadi",
+  "displayName": "Data Split",
+  "name": "data-split",
   "scope": "project",
-  "version": "v1.1.0",
+  "version": "v1.2.0",
   "components": {
     "panels": [
       {
@@ -55,14 +55,14 @@
               }
             ],
             "displayIcon": "qa-sampling",
-            "displayName": "Data Split Shadi"
+            "displayName": "Data Split"
           }
         ]
       }
     ],
     "services": [
       {
-        "name": "data-split-nodes2",
+        "name": "data-split-nodes",
         "panelNames": [
           "dataSplit"
         ],
@@ -87,7 +87,7 @@
         "maxAttempts": 3
       },
       {
-        "name": "data-split2",
+        "name": "data-split",
         "moduleName": "data_split",
         "runtime": {
           "podType": "regular-xs",

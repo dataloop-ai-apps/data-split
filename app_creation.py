@@ -10,7 +10,7 @@ import argparse
 
 
 def bump(bump_type):
-    subprocess.run(f'bumpversion {bump_type}', shell=True)
+    subprocess.run(f'bumpversion {bump_type} --allow-dirty', shell=True)
     subprocess.run('git add .', shell=True)
     subprocess.run('git commit -am "Bump version"', shell=True)
     subprocess.run('git push --follow-tags', shell=True)
@@ -39,7 +39,6 @@ def build():
         shutil.rmtree(dst_dir)
     # move dist folder
     shutil.move(src=src_dir, dst=dst_dir)
-    # rename to panel name
 
 
 def publish_and_install(project_id):
@@ -126,8 +125,3 @@ if __name__ == "__main__":
         build()
         publish_and_install(project_id=args.project)
 
-    dl.setenv('rc')
-    project_id = 'c1e4d1ad-79a3-4b7f-bf8a-74fa22c62e2a'
-    build()
-    bump('minor')
-    publish_and_install(project_id=project_id)
