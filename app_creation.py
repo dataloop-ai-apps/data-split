@@ -124,9 +124,3 @@ if __name__ == "__main__":
     if args.publish is True:
         build()
         publish_and_install(project_id=args.project)
-
-    dl.setenv('rc')
-    project_id = 'c1e4d1ad-79a3-4b7f-bf8a-74fa22c62e2a'
-    build()
-    bump('minor')
-    publish_and_install(project_id=project_id)
