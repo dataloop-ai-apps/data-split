@@ -268,6 +268,7 @@ watch(component, () => {
                 v-model="distributeEqually"
                 label="Distribute equally"
                 :disabled="readonly"
+                @update:model-value="changeDistribution"
             />
             <dl-list padding="0">
                 <dl-list-item padding="0" class="container">
