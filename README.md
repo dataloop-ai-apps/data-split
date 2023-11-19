@@ -41,7 +41,7 @@ For each item that is assigned to a group:
 
 ## Node Configuration:
 
-<img src="assets/node-config.png">
+<img src="assets/node-config.png" height="480">
 
 **Configuration**
 
