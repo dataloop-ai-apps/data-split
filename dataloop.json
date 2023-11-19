@@ -2,11 +2,11 @@
   "displayName": "Data Split",
   "name": "data-split",
   "scope": "project",
-  "version": "v1.0.13",
+  "version": "v1.1.0",
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/data-split.git",
-    "gitTag": "v1.0.13"
+    "gitTag": "v1.1.0"
   },
   "components": {
     "panels": [
