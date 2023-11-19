@@ -25,9 +25,9 @@ For each item that is assigned to a group:
 
 - The item will pass through the corresponding group output, continuing the cycle in the flow designed for the randomly
   chosen group.
-- A field will be added to the item's metadata under `metadata.system.tags.<group assigned>: True`.
+- [Optional] A tag will be added to the item's metadata under `metadata.system.tags.<group assigned>: True`.
 
-**Item metadata in group_1 Example**
+#### Item metadata in group_1 Example
 
 ```json
 {
@@ -47,9 +47,9 @@ For each item that is assigned to a group:
 
 - **Node Name:** Display name on the canvas.
 - **Groups and Distribution:** Set groups (minimum 2, maximum 5) and the required distribution.
-- **Distribute equally:** Mark this option to force equal distribution between the groups
+- **Distribute Equally:** Mark this option to force equal distribution between the groups.
 - **Item Tags**: By default, this option allows you to add metadata tag to items once they are assigned to a group. The
-  tag will be the group name and will be added to the item's metadata field: `metadata.system.tags`.
+  tag will be the group name and will be added to the item's metadata [tag](#item-metadata-in-group_1-example).
 
 ## Contributions, Bugs and Issues - How to Contribute
 
