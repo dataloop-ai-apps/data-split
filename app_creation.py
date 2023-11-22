@@ -12,14 +12,22 @@ def bump_single_panel(bump_type, panel_name):
     if os.path.isdir(dst_dir):
         print(f'Panels dir exists: {dst_dir}... Deleting')
         shutil.rmtree(dst_dir)
+    print('here 1')
     subprocess.check_output(f'git commit -am "Bump version prep"', shell=True)
+    print('here 2')
     with os.popen(f'npm version {bump_type} --no-git-tag-version --tag-version-prefix=""') as f:
         version = f.read().strip()
+    print('here 3')
     print(f'Building panel name: {panel_name}, version: {version}')
+    print('here 4')
     subprocess.check_output(f'git add .', shell=True)
+    print('here 5')
     subprocess.check_output(f'git commit -am "Bump version: v{version}"', shell=True)
+    print('here 6')
     subprocess.check_output('git push', shell=True)
+    print('here 7')
     subprocess.check_output(f'bumpversion --new-version {version} --allow-dirty dummy-part', shell=True)
+    print('here 8')
     subprocess.check_output('git push --follow-tags', shell=True)
 
 
