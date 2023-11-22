@@ -179,7 +179,10 @@ if __name__ == "__main__":
     if args.tag is True:
         # run build also here to check it works before creating the git tag
         panel_names = build()
+        print(panel_names)
+        print(len(panel_names))
         # bump and push the new tag
+        print('creating_tag')
         bump(bump_type=args.bump_type)
 
     if args.publish is True:
