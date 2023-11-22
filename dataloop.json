@@ -2,7 +2,7 @@
   "displayName": "Data Split",
   "name": "data-split",
   "scope": "project",
-  "version": "v0.0.3",
+  "version": "v0.0.4",
   "components": {
     "panels": [
       {
