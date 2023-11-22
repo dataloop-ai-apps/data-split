@@ -41,8 +41,10 @@ def bump(bump_type='patch', panel_names=None):
     # if len(panel_names) > 1:
     #     bump_multiple_panels(bump_type=bump_type, panel_names=panel_names)
     if isinstance(panel_names, list) is True and len(panel_names) == 1:
+        print('here in pump')
         bump_single_panel(bump_type=bump_type, panel_name=panel_names[0])
     else:
+        print('here in bump 2')
         subprocess.run(f'bumpversion {bump_type}', shell=True)
         subprocess.run('git add .', shell=True)
         subprocess.run('git commit -am "Bump version"', shell=True)
@@ -192,7 +194,7 @@ if __name__ == "__main__":
         print(len(panel_names))
         # bump and push the new tag
         print('creating_tag')
-        bump(bump_type=args.bump_type)
+        bump(bump_type=args.bump_type, panel_names=panel_names)
 
     if args.publish is True:
         _ = build()
