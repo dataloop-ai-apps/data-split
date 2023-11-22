@@ -16,7 +16,7 @@ def bump_single_panel(bump_type, panel_name):
         version = f.read().strip()
     print(f'Building panel name: {panel_name}, version: {version}')
     subprocess.check_output(f'git add .', shell=True)
-    subprocess.check_output(f'git rm --cached app_creation.py', shell=True)
+    subprocess.check_output(f'git reset app_creation.py', shell=True)
     subprocess.check_output(f'git commit -am "Bump version: v{version}"', shell=True)
     subprocess.check_output('git push', shell=True)
     subprocess.check_output(f'bumpversion --new-version {version} --allow-dirty dummy-part', shell=True)
