@@ -12,6 +12,7 @@ def bump_single_panel(bump_type, panel_name):
     if os.path.isdir(dst_dir):
         print(f'Panels dir exists: {dst_dir}... Deleting')
         shutil.rmtree(dst_dir)
+    subprocess.check_output(f'git commit -am "Bump version prep"', shell=True)
     with os.popen(f'npm version {bump_type} --no-git-tag-version --tag-version-prefix=""') as f:
         version = f.read().strip()
     print(f'Building panel name: {panel_name}, version: {version}')
