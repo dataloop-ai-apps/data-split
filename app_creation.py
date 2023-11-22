@@ -16,11 +16,12 @@ def bump_single_panel(bump_type, panel_name):
         version = f.read().strip()
     print(f'Building panel name: {panel_name}, version: {version}')
     subprocess.check_output(f'git add .', shell=True)
+    subprocess.check_output(f'git rm --cached app_creation.py', shell=True)
     subprocess.check_output(f'git commit -am "Bump version: v{version}"', shell=True)
     subprocess.check_output('git push', shell=True)
     subprocess.check_output(f'bumpversion --new-version {version} --allow-dirty dummy-part', shell=True)
     subprocess.check_output('git push --follow-tags', shell=True)
-    print('here DONE')
+    print(f'DONE, tag v{version} created')
 
 
 # def bump_multiple_panels(bump_type, panel_names):
@@ -32,15 +33,17 @@ def bump(bump_type='patch', panel_names=None):
     # TODO: Single package.json, discuss with Or
     # if len(panel_names) > 1:
     #     bump_multiple_panels(bump_type=bump_type, panel_names=panel_names)
-    if isinstance(panel_names, list) is True and len(panel_names) == 1:
-        print('here in pump')
-        bump_single_panel(bump_type=bump_type, panel_name=panel_names[0])
-    else:
-        print('here in bump 2')
-        subprocess.run(f'bumpversion {bump_type}', shell=True)
-        subprocess.run('git add .', shell=True)
-        subprocess.run('git commit -am "Bump version"', shell=True)
-        subprocess.run('git push --follow-tags', shell=True)
+    # if isinstance(panel_names, list) is True and len(panel_names) == 1:
+    #     bump_single_panel(bump_type=bump_type, panel_name=panel_names[0])
+    # else:
+    subprocess.run(f'bumpversion {bump_type}', shell=True)
+    with open('dataloop.json') as f:
+        manifest = json.load(f)
+    version = manifest['version']
+    subprocess.run('git add .', shell=True)
+    subprocess.run(f'git commit -am "Bump version {version}"', shell=True)
+    subprocess.check_output(f'git rm --cached app_creation.py', shell=True)
+    subprocess.run('git push --follow-tags', shell=True)
 
 
 def build_single_panel(panel_name):
