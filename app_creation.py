@@ -29,14 +29,18 @@ def bump_single_panel(bump_type, panel_name):
 #         version = bump_single_panel(bump_type=bump_type, panel_name=panel_name)
 
 
-def bump(bump_type='patch', panel_names=None):
+def bump(bump_type='patch'):
     # TODO: Single package.json, discuss with Or
     # if len(panel_names) > 1:
     #     bump_multiple_panels(bump_type=bump_type, panel_names=panel_names)
     # if isinstance(panel_names, list) is True and len(panel_names) == 1:
     #     bump_single_panel(bump_type=bump_type, panel_name=panel_names[0])
     # else:
-    subprocess.run(f'bumpversion {bump_type}', shell=True)
+    dst_dir = os.path.join('panels')
+    if os.path.isdir(dst_dir):
+        print(f'Panels dir exists: {dst_dir}... Deleting')
+        shutil.rmtree(dst_dir)
+    subprocess.run(f'bumpversion {bump_type} --allow-dirty', shell=True)
     with open('dataloop.json') as f:
         manifest = json.load(f)
     version = manifest['version']
@@ -189,7 +193,7 @@ if __name__ == "__main__":
         print(len(panel_names))
         # bump and push the new tag
         print('creating_tag')
-        bump(bump_type=args.bump_type, panel_names=panel_names)
+        bump(bump_type=args.bump_type)
 
     if args.publish is True:
         _ = build()
