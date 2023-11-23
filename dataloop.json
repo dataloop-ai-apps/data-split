@@ -113,7 +113,7 @@
         "onReset": "failed",
         "runExecutionAsProcess": false,
         "maxAttempts": 3,
-        "operation": null
+        "operation": "none"
       }
     ]
   }
