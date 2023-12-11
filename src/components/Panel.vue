@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { v4 } from 'uuid'
 import { cloneDeep, debounce, sumBy } from 'lodash'
-import { watch, ref, defineProps, computed, toRef, onUpdated  } from 'vue-demi'
+import { watch, ref, defineProps, computed, toRef, onUpdated } from 'vue-demi'
 import {
     Group,
     NodeConfig,
@@ -11,8 +11,13 @@ import {
 import { toFloat } from '../models/utils'
 import { DlFrameEvent } from '@dataloop-ai/jssdk'
 
-const props = defineProps<{ component: NodeDescriptor; readonly: boolean; addItemMetadata: boolean}>()
-const emit = defineEmits(['addItemMetadata'])
+const props = defineProps<{
+    component: NodeDescriptor
+    readonly: boolean
+    addItemMetadata: boolean
+    overrideItemMetadata: boolean
+}>()
+const emit = defineEmits(['addItemMetadata', 'overrideItemMetadata'])
 
 const component = toRef(props, 'component')
 const readonly = toRef(props, 'readonly')
@@ -33,6 +38,15 @@ const addItemMetadata = computed({
     }
 })
 
+const overrideItemMetadata = computed({
+    get: () => {
+        return props.overrideItemMetadata
+    },
+    set: (val) => {
+        emit('overrideItemMetadata', val)
+    }
+})
+
 /** Whether adding groups is allowed */
 const canAddGroup = computed(() => {
     return groups.value.length < MAX_GROUP_NUMBER
@@ -45,7 +59,7 @@ const canDelete = computed(() => {
 
 onUpdated(() => {
     window.dl.agent.sendEvent({
-        name: "app:setHeight",
+        name: 'app:setHeight',
         payload: document.body.scrollHeight
     })
 })
@@ -204,18 +218,25 @@ const debouncedUpdate = debounce(async () => {
         groups: groups.value,
         distributeEqually: distributeEqually.value,
         validation: validation.value,
-        itemMetadata: addItemMetadata.value
+        itemMetadata: addItemMetadata.value,
+        overrideItemMetadata: overrideItemMetadata.value
     })
     try {
         component.value.metadata.customNodeConfig = nodeConfig
-        component.value.outputs = 
-            [{
+        component.value.outputs = [
+            {
                 portId: component.value.outputs[0].portId ?? v4(),
-                actions: nodeConfig.groups.filter((dict) => dict.name.trim() !== '').map(element => { return element.name }) ?? [],
+                actions:
+                    nodeConfig.groups
+                        .filter((dict) => dict.name.trim() !== '')
+                        .map((element) => {
+                            return element.name
+                        }) ?? [],
                 name: 'item',
                 nodeId: component.value.id,
                 type: 'Item'
-            }]
+            }
+        ]
         await window.dl.agent.sendEvent({
             name: DlFrameEvent.UPDATE_NODE_CONFIG,
             payload: component.value
@@ -226,7 +247,14 @@ const debouncedUpdate = debounce(async () => {
 }, 200)
 
 watch(
-    [nodeName, groups, distributeEqually, validation, addItemMetadata],
+    [
+        nodeName,
+        groups,
+        distributeEqually,
+        validation,
+        addItemMetadata,
+        overrideItemMetadata
+    ],
     debouncedUpdate,
     {
         deep: true
@@ -259,7 +287,11 @@ watch(component, () => {
             <dl-typography size="12px" color="dl-color-darker"
                 >Groups & Distribution</dl-typography
             >
-            <dl-typography color="dl-color-medium" style="margin-top: 6px" size="10px">
+            <dl-typography
+                color="dl-color-medium"
+                style="margin-top: 6px"
+                size="10px"
+            >
                 Create groups and manage the data distribution (%) between them.
                 At least 2 groups must be specified, and no more than 5 groups.
             </dl-typography>
@@ -350,12 +382,7 @@ watch(component, () => {
                             @click="onClick"
                         />
                     </dl-item-section>
-                    <dl-item-section
-                        style="
-                            gap: 5px;
-                            text-align: right;
-                        "
-                    >
+                    <dl-item-section style="gap: 5px; text-align: right">
                         <div style="width: 100% font-size: 10px">
                             <dl-typography color="dl-color-darker">
                                 {{ groupsSum }}%
@@ -390,16 +417,22 @@ watch(component, () => {
                 Item Tags
                 <dl-icon icon="icon-dl-info" size="13px" />
                 <dl-tooltip>
-                    Add a tag to each item based on its assigned group during
-                    runtime. The tag will be added to the tag list of the item,
-                    under metadata.system.tags
+                    Add a tag to each item according to its assigned group. The
+                    tag will be added to a dictionary under item.metadata.system.tags
+                    in the following format: tags = {"group name": true}
                 </dl-tooltip>
             </dl-typography>
             <dl-checkbox
                 style="margin-top: 10px"
                 v-model="addItemMetadata"
-                label="Tag items based on their assigned groups"
+                label="Tag items based on their assigned group name."
                 :disabled="readonly"
+            />
+            <dl-checkbox
+                style="margin-top: 10px; margin-bottom: 20px"
+                v-model="overrideItemMetadata"
+                label="Override existing item tags"
+                :disabled="readonly || !addItemMetadata"
             />
         </div>
     </div>

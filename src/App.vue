@@ -10,6 +10,7 @@ const component = ref<NodeDescriptor>(null)
 const theme = ref('light')
 const readonly = ref(false)
 const addItemMetadata = ref(true)
+const overrideItemMetadata = ref(false)
 
 
 onMounted(() => {
@@ -40,6 +41,7 @@ onMounted(() => {
                     }
                     component.value = new NodeDescriptor(NodeDescriptor.fromJSON(eventPayload))
                     addItemMetadata.value = component.value?.metadata?.customNodeConfig?.itemMetadata ?? true
+                    overrideItemMetadata.value = component.value?.metadata?.customNodeConfig?.overrideItemMetadata ?? false
                     console.info('Node Config Event', eventPayload)
                     await window.dl.agent.sendEvent({
                         name: DlFrameEvent.UPDATE_NODE_CONFIG,
@@ -65,7 +67,9 @@ onMounted(() => {
             <Panel :component="component"
             :readonly="readonly"
             :addItemMetadata="addItemMetadata"
-            @add-item-metadata="addItemMetadata = $event"/>
+            :overrideItemMetadata="overrideItemMetadata"
+            @add-item-metadata="addItemMetadata = $event"
+            @override-item-metadata="overrideItemMetadata = $event"/>
         </div>
     </dl-theme-provider>
 </template>
