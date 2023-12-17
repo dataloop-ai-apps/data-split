@@ -296,7 +296,7 @@ watch(component, () => {
                 At least 2 groups must be specified, and no more than 5 groups.
             </dl-typography>
             <dl-checkbox
-                style="margin-top: 18px"
+                style="margin-top:22px; margin-bottom: 8px"
                 v-model="distributeEqually"
                 label="Distribute equally"
                 :disabled="readonly"
@@ -384,12 +384,13 @@ watch(component, () => {
                     </dl-item-section>
                     <dl-item-section style="gap: 5px; text-align: right">
                         <div style="width: 100% font-size: 10px">
-                            <dl-typography color="dl-color-darker">
+                            <dl-typography color="dl-color-darker" style="padding-right: 22px">
                                 {{ groupsSum }}%
                             </dl-typography>
                             <dl-typography
                                 v-if="isDistributionWarning"
                                 color="dl-color-warning"
+                                style="padding-right: 22px"
                             >
                                 <dl-icon icon="icon-dl-alert-filled" />
                                 {{ remaining }}% Remaining
@@ -397,12 +398,13 @@ watch(component, () => {
                             <dl-typography
                                 v-else-if="isDistributionError"
                                 color="dl-color-negative"
+                                style="padding-right: 22px"
                             >
                                 <dl-icon icon="icon-dl-error-filled" />
                                 {{ Math.abs(remaining) }}
                                 Exceeding
                             </dl-typography>
-                            <dl-typography v-else color="dl-color-lighter">
+                            <dl-typography v-else color="dl-color-lighter" style="padding-right: 22px">
                                 Total distribution
                             </dl-typography>
                         </div>
@@ -418,22 +420,27 @@ watch(component, () => {
                 <dl-icon icon="icon-dl-info" size="13px" />
                 <dl-tooltip>
                     Add a tag to each item according to its assigned group. The
-                    tag will be added to a dictionary under item.metadata.system.tags
+                    tag will be added to a dictionary under item.metadata.user.tags
                     in the following format: tags = {"group name": true}
                 </dl-tooltip>
             </dl-typography>
             <dl-checkbox
                 style="margin-top: 10px"
                 v-model="addItemMetadata"
-                label="Tag items based on their assigned group name."
+                label="Tag items based on their assigned group name"
                 :disabled="readonly"
             />
             <dl-checkbox
                 style="margin-top: 10px; margin-bottom: 20px"
                 v-model="overrideItemMetadata"
-                label="Override existing item tags"
                 :disabled="readonly || !addItemMetadata"
-            />
+            >
+            Override existing item tags
+            <dl-icon icon="icon-dl-info" size="13px" />
+                <dl-tooltip>
+                    All tags in the user.tags metadata category of the item will be replaced with the newly assigned tag.
+                </dl-tooltip>
+            </dl-checkbox>
         </div>
     </div>
 </template>
