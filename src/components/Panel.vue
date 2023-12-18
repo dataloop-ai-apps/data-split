@@ -413,7 +413,7 @@ watch(component, () => {
                 </dl-list-item>
             </dl-list>
         </div>
-        <dl-list-item bordered style="margin-top: 20px" height="20px" />
+        <dl-list-item bordered style="margin-top: 20px" height="5px" />
         <div id="item-metadata-section">
             <dl-typography size="12px" color="dl-color-darker">
                 Item Tags
@@ -431,7 +431,7 @@ watch(component, () => {
                 :disabled="readonly"
             />
             <dl-checkbox
-                style="margin-top: 10px; margin-bottom: 20px"
+                style="margin-top: 10px; margin-bottom: 10px"
                 v-model="overrideItemMetadata"
                 :disabled="readonly || !addItemMetadata"
             >
