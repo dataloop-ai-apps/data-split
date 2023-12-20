@@ -17,6 +17,7 @@ export interface INodeConfig {
     distributeEqually: boolean
     groups: Group[]
     itemMetadata?: boolean
+    overrideItemMetadata?: boolean
     validation: ValidationDescriptor
     ports?: Port[]
 }
@@ -39,7 +40,8 @@ export interface INodeConfigJSON {
     body: {
         distributeEqually: boolean
         groups: Group[]
-        itemMetadata?: boolean
+        itemMetadata?: boolean,
+        overrideItemMetadata?: boolean
     }
     validation: ValidationDescriptor
     ports?: Port[]
@@ -60,6 +62,7 @@ const DEFAULT_VALUES = (): INodeConfig => ({
     ],
     distributeEqually: true,
     itemMetadata: true,
+    overrideItemMetadata: false,
     validation: {
         valid: true,
         errors: []
@@ -171,6 +174,7 @@ export class NodeConfig implements INodeConfig {
     public groups: Group[]
     public itemMetadata?: boolean
     public validation: ValidationDescriptor
+    public overrideItemMetadata?: boolean
 
     constructor(init?: INodeConfig) {
         this.name = init?.name ?? NodeConfig.DefaultValues.name
@@ -178,10 +182,11 @@ export class NodeConfig implements INodeConfig {
             init?.distributeEqually ??
             NodeConfig.DefaultValues.distributeEqually
         this.groups = init?.groups ?? NodeConfig.DefaultValues.groups
-        this.itemMetadata =
-            init?.itemMetadata ?? NodeConfig.DefaultValues.itemMetadata
+        this.itemMetadata = init?.itemMetadata ?? NodeConfig.DefaultValues.itemMetadata
+        this.overrideItemMetadata = init?.overrideItemMetadata ?? NodeConfig.DefaultValues.overrideItemMetadata
         this.validation =
             init?.validation ?? NodeConfig.DefaultValues.validation
+       
     }
 
     public static get DefaultValues() {
@@ -205,7 +210,8 @@ export class NodeConfig implements INodeConfig {
             distributeEqually: json?.distributeEqually,
             groups: json?.groups,
             itemMetadata: json?.itemMetadata,
-            validation: json?.validation
+            validation: json?.validation,
+            overrideItemMetadata: json?.overrideItemMetadata,
         }
     }
 
@@ -215,6 +221,7 @@ export class NodeConfig implements INodeConfig {
             distributeEqually: this.distributeEqually,
             groups: this.groups,
             itemMetadata: this.itemMetadata ?? true,
+            overrideItemMetadata: this.overrideItemMetadata ?? false,
             validation: this.validation,
             ports: this.ports
         }

@@ -30,11 +30,12 @@ class ServiceRunner(dl.BaseServiceRunner):
         action = random.choices(population=population, weights=distribution)
         progress.update(action=action[0])
         add_item_metadata = context.node.metadata.get('customNodeConfig', {}).get('itemMetadata', False)
+        override_item_metadata = context.node.metadata.get('customNodeConfig', {}).get('overrideItemMetadata', False)
         if add_item_metadata:
-            if 'system' not in item.metadata:
-                item.metadata['system'] = {}
-            if 'tags' not in item.metadata['system']:
-                item.metadata['system']['tags'] = {}
-            item.metadata['system']['tags'][action[0]] = True
+            if 'user' not in item.metadata:
+                item.metadata['user'] = {}
+            if 'tags' not in item.metadata['user'] or override_item_metadata:
+                item.metadata['user']['tags'] = {}
+            item.metadata['user']['tags'][action[0]] = True
             item = item.update(True)
         return item
