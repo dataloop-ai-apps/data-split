@@ -24,6 +24,7 @@ const readonly = toRef(props, 'readonly')
 const MAX_GROUP_NUMBER = 5
 const MIN_GROUP_NUMBER = 2
 const MAX_DISTRIBUTION = 100
+let groupNameErrorMessage = ''
 
 const nodeName = ref(NodeConfig.DefaultValues.name)
 const distributeEqually = ref(NodeConfig.DefaultValues.distributeEqually)
@@ -140,11 +141,18 @@ const validateDistribution = debounce((index: number) => {
 const validateGroupName = (val: string, index: number) => {
     try {
         if (typeof val !== 'string') {
+            groupNameErrorMessage = 'Group name must be a string'
+            return
+        }
+        const groupNames = groups.value.map((g) => g.name)
+        if (groupNames.includes(val)) {
+            groupNameErrorMessage = 'Group name must be unique'
             return
         }
         const updated = cloneDeep(groups.value)
         updated[index].name = val?.replace(/[^\w_]/g, '') || ''
         Object.assign(groups.value, updated)
+        groupNameErrorMessage = ''
     } catch (error) {
         console.log(`Failed to validate group name`, { error })
     }
@@ -198,6 +206,12 @@ const errors = computed((): { message: string; suggestion: string }[] => {
     if (!areGroupsValid.value) {
         e.push({
             message: 'Group name is required',
+            suggestion: 'Please adjust the group name'
+        })
+    }
+    if (groupNameErrorMessage) {
+        e.push({
+            message: groupNameErrorMessage,
             suggestion: 'Please adjust the group name'
         })
     }
@@ -325,8 +339,8 @@ watch(component, () => {
                             disable-clear-btn
                             v-model="group.name"
                             placeholder="Insert group name"
-                            :error="group.name.length === 0"
-                            error-message="Group name is required"
+                            :error="group.name.length === 0 || !!groupNameErrorMessage"
+                            :error-message="groupNameErrorMessage || 'Group name is required'"
                             dense
                             :disabled="readonly"
                             @input="validateGroupName($event, index)"
@@ -343,7 +357,7 @@ watch(component, () => {
                             type="number"
                             :error="isDistributionError"
                             :warning="isDistributionWarning"
-                            :disabled="distributeEqually"
+                            :disabled="distributeEqually || readonly"
                             v-model.number="group.distribution"
                             @blur="validateDistribution(index)"
                             dense
