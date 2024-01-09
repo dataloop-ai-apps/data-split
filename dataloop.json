@@ -35,7 +35,7 @@
         "categories": [
           "data"
         ],
-        "scope": "public"
+        "scope": "node"
       }
     ],
     "modules": [
