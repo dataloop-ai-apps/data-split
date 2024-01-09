@@ -95,25 +95,6 @@
       {
         "name": "data-split",
         "moduleName": "data_split",
-        "runtime": {
-          "podType": "regular-xs",
-          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/cpu/node14:latest",
-          "numReplicas": 1,
-          "concurrency": 10,
-          "singleAgent": false,
-          "autoscaler": {
-            "type": "rabbitmq",
-            "minReplicas": 1,
-            "maxReplicas": 2,
-            "queueLength": 10
-          },
-          "preemptible": false
-        },
-        "executionTimeout": 172800,
-        "drainTime": 600,
-        "onReset": "failed",
-        "runExecutionAsProcess": false,
-        "maxAttempts": 3,
         "operation": "none"
       }
     ]
