@@ -27,6 +27,7 @@
     "pipelineNodes": [
       {
         "panel": "dataSplit",
+        "name": "dataSplit",
         "invoke": {
           "type": "function",
           "namespace": "data-split.data_split.data_split"
