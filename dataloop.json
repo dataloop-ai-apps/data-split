@@ -1,7 +1,7 @@
 {
   "displayName": "Data Split",
   "name": "data-split",
-  "scope": "system",
+  "scope": "global",
   "version": "v0.0.16",
   "codebase": {
     "type": "git",
@@ -34,7 +34,7 @@
         "categories": [
           "data"
         ],
-        "scope": "project"
+        "scope": "global"
       }
     ],
     "modules": [
