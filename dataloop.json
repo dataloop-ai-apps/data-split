@@ -1,5 +1,6 @@
 {
   "displayName": "Data Split",
+  "description": "The 'Data Split' node is a data processing tool that allows you to dynamically split your data into multiple groups at runtime. Whether you need to sample items for QA tasks or divide the items into multiple datasets, the Data Split node makes it easy.\n \n Simply define your groups, set their distribution, and tag each item with its assigned group using a metadata field. Use the Data Split node at any point in your pipeline to customize your data processing.",
   "name": "data-split",
   "scope": "public",
   "version": "0.0.23",
@@ -102,7 +103,8 @@
             "minReplicas": 0,
             "maxReplicas": 2,
             "queueLength": 10
-          }},
+          }
+        },
         "operation": "none"
       }
     ]
