@@ -15,26 +15,24 @@ const overrideItemMetadata = ref(false)
 
 onMounted(() => {
     try {
-        window.dl.init()
-        const dl = window.dl
-        dl.on(DlEvent.READY, async () => {
+        window.dl.on(DlEvent.READY, async () => {
             try {
-                const settings = await dl.settings.get() as any
+                const settings = await window.dl.settings.get() as any
                 theme.value = settings.theme
                 readonly.value = settings.readonly === 'view'
             } catch (e) {
                 throw new Error('Error getting settings', e)
             }
 
-            dl.on(DlEvent.THEME, (mode: string) => {
+            window.dl.on(DlEvent.THEME, (mode: string) => {
                 theme.value = mode
             })
 
-            dl.on('pipelineReadonly', ({mode}: {mode: string}) => {
+            window.dl.on('pipelineReadonly', ({mode}: {mode: string}) => {
                 readonly.value = mode === 'view'
             })
 
-            dl.on(DlEvent.NODE_CONFIG, async (eventPayload: NodeDescriptor) => {
+            window.dl.on(DlEvent.NODE_CONFIG, async (eventPayload: NodeDescriptor) => {
                 try {
                     if (!eventPayload.metadata.customNodeConfig){
                         eventPayload.metadata.customNodeConfig = NodeConfig.DefaultValues
