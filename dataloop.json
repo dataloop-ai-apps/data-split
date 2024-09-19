@@ -9,6 +9,11 @@
     "gitUrl": "https://github.com/dataloop-ai-apps/data-split.git",
     "gitTag": "0.0.30"
   },
+  "metadata": {
+    "system": {
+      "systemCompute": true
+    }
+  },
   "components": {
     "panels": [
       {
