@@ -24,7 +24,6 @@ const readonly = toRef(props, 'readonly')
 const MAX_GROUP_NUMBER = 5
 const MIN_GROUP_NUMBER = 2
 const MAX_DISTRIBUTION = 100
-let groupNameErrorMessage = ''
 
 const nodeName = ref(NodeConfig.DefaultValues.name)
 const distributeEqually = ref(NodeConfig.DefaultValues.distributeEqually)
@@ -140,22 +139,23 @@ const validateDistribution = debounce((index: number) => {
 /** Validation of the group name */
 const validateGroupName = (val: string, index: number) => {
     try {
-        if (typeof val !== 'string') {
-            groupNameErrorMessage = 'Group name must be a string'
-            return
-        }
-        const groupNames = groups.value.map((g) => g.name)
-        if (groupNames.includes(val)) {
-            groupNameErrorMessage = 'Group name must be unique'
-            return
-        }
         const updated = cloneDeep(groups.value)
         updated[index].name = val?.replace(/[^\w_]/g, '') || ''
         Object.assign(groups.value, updated)
-        groupNameErrorMessage = ''
     } catch (error) {
         console.log(`Failed to validate group name`, { error })
     }
+}
+
+const checkGroupNameError = (val: string) => {
+    if (typeof val !== 'string') {
+        return 'Group name must be a string'
+    }
+    const groupNames = groups.value.map((g) => g.name)
+    if (groupNames.filter((name) => name === val).length > 1) {
+        return 'Group name must be unique'
+    }
+    return val.length === 0 ? 'Group name is required' : ''
 }
 
 /** Validation of the metadata key */
@@ -174,6 +174,11 @@ const isDistributionValid = computed(() => {
 /** Whether all groups are valid */
 const areGroupsValid = computed(() => {
     return groups.value.every((g) => !!g.name.length)
+})
+
+const areGroupNamesUnique = computed(() => {
+    const groupNames = groups.value.map((g) => g.name)
+    return new Set(groupNames).size === groupNames.length
 })
 
 const nodeNameErrorMessage = computed(() => {
@@ -209,9 +214,9 @@ const errors = computed((): { message: string; suggestion: string }[] => {
             suggestion: 'Please adjust the group name'
         })
     }
-    if (groupNameErrorMessage) {
+    if (!areGroupNamesUnique.value) {
         e.push({
-            message: groupNameErrorMessage,
+            message: 'Group name must be unique',
             suggestion: 'Please adjust the group name'
         })
     }
@@ -339,8 +344,8 @@ watch(component, () => {
                             disable-clear-btn
                             v-model="group.name"
                             placeholder="Insert group name"
-                            :error="group.name.length === 0 || !!groupNameErrorMessage"
-                            :error-message="groupNameErrorMessage || 'Group name is required'"
+                            :error="!!checkGroupNameError(group.name)"
+                            :error-message="checkGroupNameError(group.name)"
                             dense
                             :disabled="readonly"
                             @input="validateGroupName($event, index)"
@@ -368,14 +373,14 @@ watch(component, () => {
                             size="s"
                             flat
                             padding="0"
-                            :tooltip="
+                            :tooltip="readonly ? '' :
                                 !canDelete
                                     ? 'There is a minimum limitation of two groups'
                                     : 'Remove group'
                             "
                             icon="icon-dl-close"
                             @click="onDelete(group.id)"
-                            :disabled="!canDelete && readonly"
+                            :disabled="!canDelete || readonly"
                         />
                     </dl-item-section>
                 </dl-list-item>
