@@ -138,7 +138,10 @@ const validateDistribution = debounce((index: number) => {
 }, 0)
 
 /** Validation of the group name */
-const validateGroupName = (val: string, index: number) => {
+const validateGroupName = (val, index: number) => {
+    if (val?.type == 'change'){
+        return
+    }
     try {
         if (typeof val !== 'string') {
             groupNameErrorMessage = 'Group name must be a string'
