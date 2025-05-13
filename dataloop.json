@@ -80,7 +80,7 @@
         ],
         "runtime": {
           "podType": "regular-xs",
-          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/cpu/node14:latest",
+          "runnerImage": "docker.io/dataloopai/dtlpy-agent:cpu.py3.10.opencv",
           "numReplicas": 1,
           "concurrency": 10,
           "singleAgent": false,
@@ -92,17 +92,14 @@
           },
           "preemptible": false
         },
-        "executionTimeout": 172800,
-        "drainTime": 600,
-        "onReset": "failed",
-        "runExecutionAsProcess": false,
-        "maxAttempts": 3
+        "executionTimeout": 7200
       },
       {
         "name": "data-split",
         "moduleName": "data_split",
         "runtime": {
           "podType": "regular-xs",
+          "runnerImage": "docker.io/dataloopai/dtlpy-agent:cpu.py3.10.opencv",
           "autoscaler": {
             "type": "rabbitmq",
             "minReplicas": 0,
