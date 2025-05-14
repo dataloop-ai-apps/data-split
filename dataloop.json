@@ -3,11 +3,11 @@
   "description": "The 'Data Split' node is a data processing tool that allows you to dynamically split your data into multiple groups at runtime. Whether you need to sample items for QA tasks or divide the items into multiple datasets, the Data Split node makes it easy.\n \n Simply define your groups, set their distribution, and tag each item with its assigned group using a metadata field. Use the Data Split node at any point in your pipeline to customize your data processing.",
   "name": "data-split",
   "scope": "public",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/data-split.git",
-    "gitTag": "0.0.33"
+    "gitTag": "0.0.34"
   },
   "metadata": {
     "system": {
