@@ -303,11 +303,11 @@ watch(component, () => {
             :disabled="readonly"
         />
         <div>
-            <dl-typography size="12px" color="dl-color-darker"
+            <dl-typography size="12px" color="dell-gray-800"
                 >Groups & Distribution</dl-typography
             >
             <dl-typography
-                color="dl-color-medium"
+                color="dell-gray-600"
                 style="margin-top: 6px"
                 size="10px"
             >
@@ -323,10 +323,10 @@ watch(component, () => {
             />
             <dl-list padding="0">
                 <dl-list-item padding="0" class="container">
-                    <dl-item-section color="dl-color-medium" class="item"
+                    <dl-item-section color="dell-gray-600" class="item"
                         >Group Name</dl-item-section
                     >
-                    <dl-item-section color="dl-color-medium" class="item-2"
+                    <dl-item-section color="dell-gray-600" class="item-2"
                         >Distribution</dl-item-section
                     >
                 </dl-list-item>
@@ -402,13 +402,13 @@ watch(component, () => {
                         />
                     </dl-item-section>
                     <dl-item-section style="gap: 5px; text-align: right">
-                        <div style="width: 100% font-size: 10px">
-                            <dl-typography color="dl-color-darker" style="padding-right: 22px">
+                        <div style="width: 100%; font-size: 10px">
+                            <dl-typography color="dell-gray-800" style="padding-right: 22px">
                                 {{ groupsSum }}%
                             </dl-typography>
                             <dl-typography
                                 v-if="isDistributionWarning"
-                                color="dl-color-warning"
+                                color="dell-yellow-600"
                                 style="padding-right: 22px"
                             >
                                 <dl-icon icon="icon-dl-alert-filled" />
@@ -416,14 +416,14 @@ watch(component, () => {
                             </dl-typography>
                             <dl-typography
                                 v-else-if="isDistributionError"
-                                color="dl-color-negative"
+                                color="dell-red-500"
                                 style="padding-right: 22px"
                             >
                                 <dl-icon icon="icon-dl-error-filled" />
                                 {{ Math.abs(remaining) }}
                                 Exceeding
                             </dl-typography>
-                            <dl-typography v-else color="dl-color-lighter" style="padding-right: 22px">
+                            <dl-typography v-else color="dell-gray-500" style="padding-right: 22px">
                                 Total distribution
                             </dl-typography>
                         </div>
@@ -434,7 +434,7 @@ watch(component, () => {
         </div>
         <dl-list-item bordered style="margin-top: 20px" height="5px" />
         <div id="item-metadata-section">
-            <dl-typography size="12px" color="dl-color-darker">
+            <dl-typography size="12px" color="dell-gray-800">
                 Item Tags
                 <dl-icon icon="icon-dl-info" size="13px" />
                 <dl-tooltip>

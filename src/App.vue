@@ -21,7 +21,7 @@ onMounted(() => {
                 theme.value = settings.theme
                 readonly.value = settings.readonly === 'view'
             } catch (e) {
-                throw new Error('Error getting settings', e)
+                console.error('Error getting settings', e)
             }
 
             window.dl.on(DlEvent.THEME, (mode: string) => {
@@ -46,10 +46,7 @@ onMounted(() => {
                         payload: component.value
                     })
                 } catch (e) {
-                    throw new Error(
-                        'Error creating NodeConfig from nodeConfig event',
-                        e
-                    )
+                    console.error('Error creating NodeConfig from nodeConfig event', e)
                 }
             })
         })
