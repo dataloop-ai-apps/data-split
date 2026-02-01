@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dataloop-ai/components": "^0.17.55",
-    "@dataloop-ai/icons": "^2.0.10",
-    "@dataloop-ai/jssdk": "^0.0.86",
+    "@dataloop-ai/components": "^0.20.201",
+    "@dataloop-ai/icons": "^3.1.59",
+    "@dataloop-ai/jssdk": "^0.0.111",
     "lodash": "^4.17.21",
     "unplugin-vue-components": "^0.22.7",
     "uuid": "^9.0.0",
@@ -22,11 +22,11 @@
   "devDependencies": {
     "@types/lodash": "^4.14.191",
     "@types/uuid": "^9.0.0",
-    "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "@vitejs/plugin-vue": "^3.1.0",
+    "@vitejs/plugin-basic-ssl": "^2.1.4",
+    "@vitejs/plugin-vue": "^6.0.3",
     "prettier": "^2.8.3",
     "typescript": "^4.6.4",
-    "vite": "^3.1.0",
+    "vite": "^7.3.1",
     "vue-tsc": "^0.40.4"
   }
 }

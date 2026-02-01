@@ -32,4 +32,38 @@ export default defineConfig({
       ],
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Suppress Sass @import deprecation warnings
+        silenceDeprecations: ['import']
+      }
+    }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            // Vue core libraries (check first to avoid circular deps)
+            if (id.includes('vue') && !id.includes('@dataloop-ai')) {
+              return 'vendor-vue'
+            }
+            // Dataloop packages (includes icons which is a dependency)
+            if (id.includes('@dataloop-ai')) {
+              return 'vendor-dataloop'
+            }
+            // Utility libraries
+            if (id.includes('lodash') || id.includes('uuid')) {
+              return 'vendor-utils'
+            }
+            // Other node_modules go into vendor chunk
+            return 'vendor'
+          }
+        },
+      }
+    },
+    chunkSizeWarningLimit: 1500
+  }
 });

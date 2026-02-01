@@ -402,7 +402,7 @@ watch(component, () => {
                         />
                     </dl-item-section>
                     <dl-item-section style="gap: 5px; text-align: right">
-                        <div style="width: 100% font-size: 10px">
+                        <div style="width: 100%; font-size: 10px">
                             <dl-typography color="dl-color-darker" style="padding-right: 22px">
                                 {{ groupsSum }}%
                             </dl-typography>
