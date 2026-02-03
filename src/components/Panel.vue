@@ -299,6 +299,7 @@ watch(component, () => {
             v-model="nodeName"
             title="Node Name"
             required
+            red-asterisk
             @blur="trimNodeName"
             :disabled="readonly"
         />
@@ -436,7 +437,11 @@ watch(component, () => {
         <div id="item-metadata-section">
             <dl-typography size="12px" color="dl-color-darker">
                 Item Tags
-                <dl-icon icon="icon-dl-info" size="13px" />
+                <dl-icon
+                    icon="icon-dl-info"
+                    size="13px"
+                    color="var(--dell-blue-500)"
+                />
                 <dl-tooltip>
                     Add a tag to each item according to its assigned group. The
                     tag will be added to a dictionary under item.metadata.user.tags
@@ -454,8 +459,12 @@ watch(component, () => {
                 v-model="overrideItemMetadata"
                 :disabled="readonly || !addItemMetadata"
             >
-            Override existing item tags
-            <dl-icon icon="icon-dl-info" size="13px" />
+                Override existing item tags
+                <dl-icon
+                    icon="icon-dl-info"
+                    size="13px"
+                    color="var(--dell-blue-500)"
+                />
                 <dl-tooltip>
                     All tags in the user.tags metadata category of the item will be replaced with the newly assigned tag.
                 </dl-tooltip>
@@ -465,6 +474,15 @@ watch(component, () => {
 </template>
 
 <style>
+/* Dell-styled Tooltip */
+.dl-tooltip {
+    background-color: var(--dell-white, #ffffff) !important;
+    color: var(--dell-gray-800, #333333) !important;
+    box-shadow: 0 2px 2px 0 var(--dell-shadow, rgba(0, 0, 0, 0.14)) !important;
+    border: 1px solid var(--dell-gray-200, #eaeaea) !important;
+    border-radius: 0px !important;
+}
+
 #groups-distribution > .dl-list-item {
     align-items: start !important;
 }
