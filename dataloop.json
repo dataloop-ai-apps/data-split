@@ -80,7 +80,7 @@
         ],
         "runtime": {
           "podType": "regular-xs",
-          "runnerImage": "hub.dataloop.ai/dtlpy-runner-images/cpu:python3.14_full",
+          "runnerImage": "hub.dataloop.ai/dtlpy-runner-images/cpu:python3.13_full_bci_latest",
           "numReplicas": 1,
           "concurrency": 10,
           "singleAgent": false,
@@ -99,7 +99,7 @@
         "moduleName": "data_split",
         "runtime": {
           "podType": "regular-xs",
-          "runnerImage": "hub.dataloop.ai/dtlpy-runner-images/cpu:python3.14_full",
+          "runnerImage": "hub.dataloop.ai/dtlpy-runner-images/cpu:python3.13_full_bci_latest",
           "autoscaler": {
             "type": "rabbitmq",
             "minReplicas": 0,
