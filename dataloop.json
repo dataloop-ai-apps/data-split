@@ -99,7 +99,7 @@
         "moduleName": "data_split",
         "runtime": {
           "podType": "regular-xs",
-          "runnerImage": "hub.dataloop.ai/dtlpy-runner-images/cpu:python3.13_full_bci",
+          "runnerImage": "hub.dataloop.ai/customerhub/piper/agent/runner/cpu/base:python3.13_full_bci",
           "autoscaler": {
             "type": "rabbitmq",
             "minReplicas": 0,
